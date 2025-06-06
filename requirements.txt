@@ -1,0 +1,9 @@
+opencv-python
+mediapipe
+pygame
+turtle
+queue
+asyncio
+platform
+random
+threading

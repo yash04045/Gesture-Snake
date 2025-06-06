@@ -1,0 +1,28 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Large data files
+*.mp4
+*.avi
+*.mov
+*.dat
+
+# Logs
+*.log
+
+# OS specific files
+.DS_Store
+Thumbs.db 
