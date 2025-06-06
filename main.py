@@ -21,8 +21,6 @@ def gesture_loop():
         frame, gesture = gesture_detector.detect(frame)
         if gesture:
             current_gesture.put(gesture)
-            if gesture == "exit":
-                break
         cv2.imshow("Gesture Detection", frame)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -55,6 +53,31 @@ def snake():
 def dir(a):
     if (a + 180) % 360 != head.heading() % 360:
         head.setheading(a)
+        print(f"Direction set to: {a}")  # Debug output
+
+# Keypress handlers
+def go_up():
+    print("Up key pressed")  # Debug output
+    dir(90)
+
+def go_down():
+    print("Down key pressed")  # Debug output
+    dir(270)
+
+def go_left():
+    print("Left key pressed")  # Debug output
+    dir(180)
+
+def go_right():
+    print("Right key pressed")  # Debug output
+    dir(0)
+
+# Bind keys to direction functions
+S.listen()
+S.onkey(go_up, "Up")
+S.onkey(go_down, "Down")
+S.onkey(go_left, "Left")
+S.onkey(go_right, "Right")
 
 # Initialize snake
 for _ in range(3):
@@ -162,6 +185,8 @@ async def main():
             head.goto(head.xcor(), 300)
 
         await asyncio.sleep(0.15)
+        # Process turtle events
+        S.getcanvas().update()
 
     # Save high score
     try:
@@ -175,4 +200,8 @@ if platform.system() == "Emscripten":
     asyncio.ensure_future(main())
 else:
     if __name__ == "__main__":
-        asyncio.run(main())
+        try:
+            asyncio.run(main())
+        finally:
+            cap.release()
+            cv2.destroyAllWindows()
